@@ -1,4 +1,4 @@
-﻿# Motion Design Prompt Generator
+# Motion Design Prompt Generator
 
 An agent skill that turns **one line of intent** into a **frame-accurate motion brief**: a master prompt you can paste into Sora / Veo / Kling / Seedance / Runway, a beat sheet your editor can cut to, and a JSON spec your renderer can execute.
 

@@ -1,4 +1,4 @@
-﻿# Motion Design Prompt Generator锛堝姩鏁堟彁绀鸿瘝鐢熸垚鍣級
+# Motion Design Prompt Generator锛堝姩鏁堟彁绀鸿瘝鐢熸垚鍣級
 
 涓€涓?Agent 鎶€鑳斤細鎶?*涓€鍙ヨ瘽鐨勬兂娉?*锛屽彉鎴?*甯х骇鍙墽琛岀殑鍔ㄦ晥绠€鎶?*鈥斺€旇兘鐩存帴绮樿繘 Sora / Veo / Kling / 鍗虫ⅵ / Runway 鐨勪富鎻愮ず璇嶃€佸壀杈戣兘瀵圭潃鍗＄偣鐨勫垎闀滆〃銆佹覆鏌撳櫒鑳界洿鎺ヨ窇鐨?JSON 瑙勬牸銆?
 鏀寔 DeepSeek Harness锛圖SH锛夈€丆laude Code銆丆odex銆丆ursor锛屼互鍙婁换浣曡鍙?`SKILL.md` 鐨?Agent銆?
