@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/skills/motion-design-prompt-generator/spec.schema.json",
+  "title": "Motion Spec",
+  "description": "Frame-accurate motion specification for code-based motion (Remotion, HyperFrames, GSAP, Lottie). Produced by motion-design-prompt-generator.",
+  "type": "object",
+  "required": ["composition", "tracks"],
+  "additionalProperties": false,
+  "properties": {
+    "composition": {
+      "type": "object",
+      "required": ["id", "fps", "durationInFrames", "width", "height"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "fps": { "type": "integer", "enum": [24, 25, 30, 50, 60] },
+        "durationInFrames": { "type": "integer", "minimum": 1 },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "background": { "type": "string" }
+      }
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "src": { "type": "string" },
+        "volume": { "type": "number", "minimum": 0, "maximum": 1 },
+        "bpm": { "type": "number", "minimum": 30, "maximum": 300 }
+      }
+    },
+    "tracks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["target", "from", "durationInFrames", "props"],
+        "additionalProperties": false,
+        "properties": {
+          "target": { "type": "string", "minLength": 1 },
+          "from": { "type": "integer", "minimum": 0 },
+          "durationInFrames": { "type": "integer", "minimum": 1 },
+          "props": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+              "oneOf": [
+                { "type": "number" },
+                {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 4,
+                  "items": { "type": "number" }
+                }
+              ]
+            }
+          },
+          "easing": {
+            "oneOf": [
+              { "type": "string", "pattern": "^cubic-bezier\\(\\s*-?[0-9.]+\\s*,\\s*-?[0-9.]+\\s*,\\s*-?[0-9.]+\\s*,\\s*-?[0-9.]+\\s*\\)$" },
+              { "type": "string", "enum": ["linear", "spring", "steps"] }
+            ]
+          },
+          "spring": {
+            "type": "object",
+            "required": ["stiffness", "damping"],
+            "additionalProperties": false,
+            "properties": {
+              "stiffness": { "type": "number", "minimum": 1 },
+              "damping": { "type": "number", "minimum": 1 },
+              "mass": { "type": "number", "minimum": 0.1 }
+            }
+          },
+          "transformOrigin": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "reducedMotion": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strategy": { "type": "string", "enum": ["fade-only", "none", "static"] },
+        "durationMs": { "type": "integer", "minimum": 0, "maximum": 400 }
+      }
+    }
+  }
+}
