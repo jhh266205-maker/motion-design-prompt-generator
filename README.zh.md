@@ -1,30 +1,40 @@
-# Motion Design Prompt Generator锛堝姩鏁堟彁绀鸿瘝鐢熸垚鍣級
+# Motion Design Prompt Generator（动效提示词生成器）
 
-涓€涓?Agent 鎶€鑳斤細鎶?*涓€鍙ヨ瘽鐨勬兂娉?*锛屽彉鎴?*甯х骇鍙墽琛岀殑鍔ㄦ晥绠€鎶?*鈥斺€旇兘鐩存帴绮樿繘 Sora / Veo / Kling / 鍗虫ⅵ / Runway 鐨勪富鎻愮ず璇嶃€佸壀杈戣兘瀵圭潃鍗＄偣鐨勫垎闀滆〃銆佹覆鏌撳櫒鑳界洿鎺ヨ窇鐨?JSON 瑙勬牸銆?
-鏀寔 DeepSeek Harness锛圖SH锛夈€丆laude Code銆丆odex銆丆ursor锛屼互鍙婁换浣曡鍙?`SKILL.md` 鐨?Agent銆?
+一个 Agent 技能：把**一句话的想法**变成**帧级可执行的动效简报**——能直接粘进 Sora / Veo / Kling / 即梦 / Runway 的主提示词、剪辑能对着卡点的分镜表、渲染器能直接跑的 JSON 规格。
+
+支持 DeepSeek Harness（DSH）、Claude Code、Codex、Cursor，以及任何读取 `SKILL.md` 的 Agent。
+
 ---
 
-## 瀹冭В鍐充粈涔堥棶棰?
-澶у鏁?AI 瑙嗛鎻愮ず璇嶆槸鍦ㄥ爢褰㈠璇嶏細*楂樼骇銆佷笣婊戙€佺數褰辨劅銆?K*銆傛ā鍨嬪彧鑳界敤璁粌鏁版嵁鐨勫钩鍧囧€兼潵鍥炵瓟锛屼簬鏄垚鐗囩湅璧锋潵鍍忛€氱敤绱犳潗搴撱€?
-杩欎釜鎶€鑳芥妸褰㈠璇嶆崲鎴?*鍙娴嬬殑浜嬪疄**锛氱劍娈点€佽窛绂汇€佹椂闀裤€佺紦鍔ㄣ€佽搴︺€佹潗璐ㄣ€佷竴涓墿鐞嗙粏鑺傘€佷竴鏉¤礋鍚戠害鏉熴€傛彁绀鸿瘝浠庢鏄鏍间功鈥斺€斿彲澶嶇幇銆佸彲璇勫銆佸簾鐗囩巼澶у箙涓嬮檷銆?
-## 鍓嶅悗瀵规瘮
+## 它解决什么问题
 
-**浣犺锛?*
+大多数 AI 视频提示词是在堆形容词：*高级、丝滑、电影感、4K*。模型只能用训练数据的平均值来回答，于是成片看起来像通用素材库。
 
-> 缁欐垜浠柊鐨勫崗浣滃伐鍏峰仛涓€涓?15 绉掑紑鍦猴紝鍐烽潤銆侀珮绾с€?
-**娌℃湁鎶€鑳芥椂锛?*
+这个技能把形容词换成**可观测的事实**：焦段、距离、时长、缓动、角度、材质、一个物理细节、一条负向约束。提示词从此是规格书——可复现、可评审、废片率大幅下降。
 
-> 涓€涓渿鎾肩殑鐢靛奖鎰熷姩鐢伙紝鐜颁唬鍗忎綔宸ュ叿锛屼笣婊戣繍鍔紝楂樿川閲忥紝4K锛屾湭鏉ユ劅鐣岄潰锛屽敮缇庡厜褰便€?
-**鏈夋妧鑳芥椂锛?*
+## 前后对比
+
+**你说：**
+
+> 给我们新的协作工具做一个 15 秒开场，冷静、高级。
+
+**没有技能时：**
+
+> 一个震撼的电影感动画，现代协作工具，丝滑运动，高质量，4K，未来感界面，唯美光影。
+
+**有技能时：**
 
 ```
-鍋囪锛?5s / 16:9 / 鏃犱汉鐗?/ 鍐疯壊璋?
-鍒嗛暅鑺傛媿
-0.0鈥?.5s  涓夌矑鍐峰厜鍦ㄨ櫄绌轰腑鍔犻€熶笅鍧?1.5鈥?s    姹囪仛鎴愪竴鏉＄嚎锛屽睍寮€鎴愮（鐮傜幓鐠冮潰鏉?4鈥?s      闈㈡澘瑁傚紑锛屽垎灞傜晫闈互 6mm 瑙嗗樊婊戝嚭
-9鈥?2s     娌挎帴缂濈‖鍒囷紝闀滃ご鎺ㄨ繘椤跺眰
-12鈥?5s    logo 钀界増锛岄潤姝?0.5s
+假设：15s / 16:9 / 无人物 / 冷色调
 
-涓绘彁绀鸿瘝
+分镜节拍
+0.0–1.5s  三粒冷光在虚空中加速下坠
+1.5–4s    汇聚成一条线，展开成磨砂玻璃面板
+4–9s      面板裂开，分层界面以 6mm 视差滑出
+9–12s     沿接缝硬切，镜头推进顶层
+12–15s    logo 落版，静止 0.5s
+
+主提示词
 Three points of cold blue light fall through a black void, accelerating,
 then converge into a single horizontal line that unfolds into a floating
 pane of frosted glass. The pane splits along a seam and layers of
@@ -35,10 +45,12 @@ the panel seams. Single cold key from above, cyan rim light, volumetric
 haze, brushed glass micro-texture. No people, no readable text, no lens flare.
 ```
 
-## 瀹夎
+## 安装
 
-鎶€鑳藉氨鏄竴涓枃浠跺す锛屽鍒跺埌浣犵殑 Agent 鎶€鑳界洰褰曞嵆鍙€?
-### DeepSeek Harness锛圖SH锛?
+技能就是一个文件夹，复制到你的 Agent 技能目录即可。
+
+### DeepSeek Harness（DSH）
+
 ```powershell
 # Windows
 git clone https://github.com/jhh266205-maker/motion-design-prompt-generator.git "$env:USERPROFILE\.dsh\skills\motion-design-prompt-generator"
@@ -49,61 +61,80 @@ git clone https://github.com/jhh266205-maker/motion-design-prompt-generator.git 
 git clone https://github.com/jhh266205-maker/motion-design-prompt-generator.git ~/.dsh/skills/motion-design-prompt-generator
 ```
 
-DSH 浼氱洃鍚妧鑳界洰褰曪紝**鏃犻渶閲嶅惎**鍗冲彲鐢熸晥銆?
+DSH 会监听技能目录，**无需重启**即可生效。
+
 ### Claude Code
 
 ```bash
 git clone https://github.com/jhh266205-maker/motion-design-prompt-generator.git ~/.claude/skills/motion-design-prompt-generator
 ```
 
-### Cursor / Codex / Windsurf
+### 一键安装（克隆之后）
 
-鍏嬮殕鍒板搴斿鎴风鐨勬妧鑳芥牴鐩綍锛坄~/.cursor/skills/`銆乣~/.codex/skills/`銆乣~/.codeium/windsurf/skills/`锛夛紝鎴栭」鐩唴鐨?`.agents/skills/`銆?
-### 涓€閿畨瑁咃紙鍏嬮殕涔嬪悗锛?
 ```powershell
-# Windows锛堟墽琛岀瓥鐣ュ彲鑳芥嫤鎴湭绛惧悕鑴氭湰锛屽崟娆＄粫杩囧嵆鍙級
+# Windows（执行策略可能拦截未签名脚本，单次绕过即可）
 powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1
 ```
 
 ```bash
 # macOS / Linux
-./install.sh                 # 鏈?DSH 鍜?Claude Code 灏遍兘瑁?./install.sh --target dsh    # 鍙 DSH
+./install.sh                 # 有 DSH 和 Claude Code 就都装
+./install.sh --target dsh    # 只装 DSH
 ```
 
-### 鍏朵粬 Agent
+### Cursor / Codex / Windsurf
 
-鎶?`SKILL.md` 鏀惧埌浣犵殑 Agent 璇诲彇鎶€鑳界殑浣嶇疆锛屾垨鐩存帴绮樿繘 system prompt鈥斺€旀暣濂楁柟娉曢兘鑷寘鍚湪杩欎竴涓枃浠堕噷銆俙references/` 鍜?`assets/` 鏄彲閫夋繁搴︺€?
-## 鎬庝箞鐢?
-鎶€鑳介潬鎰忓浘瑙﹀彂锛屼笉鐢ㄧ偣鍚嶏細
+克隆到对应客户端的技能根目录（`~/.cursor/skills/`、`~/.codex/skills/`、`~/.codeium/windsurf/skills/`），或项目内的 `.agents/skills/`。
 
-> 鎶婅繖涓?brief 鍙樻垚鍔ㄦ晥鎻愮ず璇嶏細涓€涓搼鍏夐粦绔嬫柟浣撳睍寮€鎴愪骇鍝侀〉銆?
-> 缁欐垜涓€鏉?9:16 鐨?Kling 鎻愮ず璇嶏紝鍋?logo 婕旂粠锛屾姌绾搁笩锛? 绉掋€?
-> 缁欐垜 Remotion 瑙勬牸锛屽彂甯冧細澶у睆鐢ㄧ殑鏌辩姸鍥惧姩鐢汇€?
-> 鎶娿€屼竴鏉啺缇庡紡銆嶅仛鎴?8 绉掔珫鐗堝姩鏁堟彁绀鸿瘝锛岃鍏嬪埗銆佸埆缃戠孩銆?
-涔熷彲浠ユ樉寮忚皟鐢細
+### 其他 Agent
 
-> 鐢?motion-design-prompt-generator 缁欒繖涓垎闀滃啓鎻愮ず璇嶃€?
-## 浜у嚭浠€涔?
-| 浜у嚭 | 褰㈡€?| 鐢ㄩ€?|
+把 `SKILL.md` 放到你的 Agent 读取技能的位置，或直接粘进 system prompt——整套方法都自包含在这一个文件里。`references/` 和 `assets/` 是可选深度。
+
+## 怎么用
+
+技能靠意图触发，不用点名：
+
+> 把这个 brief 变成动效提示词：一个哑光黑立方体展开成产品页。
+
+> 给我一条 9:16 的 Kling 提示词，做 logo 演绎，折纸鸟，5 秒。
+
+> 给我 Remotion 规格，发布会大屏用的柱状图动画。
+
+> 把「一杯冰美式」做成 8 秒竖版动效提示词，要克制、别网红。
+
+也可以显式调用：
+
+> 用 motion-design-prompt-generator 给这个分镜写提示词。
+
+## 产出什么
+
+| 产出 | 形态 | 用途 |
 |---|---|---|
-| 涓绘彁绀鸿瘝 | 80鈥?60 璇?| 鐩存帴绮樿繘 Sora / Veo / Kling / 鍗虫ⅵ |
-| 鍒嗛暅鑺傛媿琛?| 甯︽椂闂寸爜鐨?Markdown 琛ㄦ牸 | 鍓緫鍗＄偣銆佸鎴疯瘎瀹°€佹媿鎽勮鍒?|
-| 骞冲彴鍙樹綋鍖?| 姣忎釜妯″瀷涓€鏉℃敼鍐欑増 | 鍚屼竴鍒涙剰璺ㄦā鍨嬪鐢?|
-| 鍔ㄦ晥瑙勬牸 | JSON锛堥檮 schema锛?| Remotion / HyperFrames / GSAP / Lottie |
-| 璐熷悜涓庨敋鐐瑰潡 | 鏂囨湰 | 闄嶅簾鐗囩巼銆佸闀滃ご涓€鑷存€?|
+| 主提示词 | 80–160 词 | 直接粘进 Sora / Veo / Kling / 即梦 |
+| 分镜节拍表 | 带时间码的 Markdown 表格 | 剪辑卡点、客户评审、拍摄计划 |
+| 平台变体包 | 每个模型一条改写版 | 同一创意跨模型复用 |
+| 动效规格 | JSON（附 schema） | Remotion / HyperFrames / GSAP / Lottie |
+| 负向与锚点块 | 文本 | 降废片率、多镜头一致性 |
 
-## 鐩綍缁撴瀯
+## 目录结构
 
 ```
-SKILL.md                        # 鏂规硶涓讳綋锛? 姝ユ祦绋嬨€? 妲戒綅鎻愮ず璇嶈В鍓栥€佽川閲忛棬妲?references/motion-grammar.md    # 缂撳姩鏇茬嚎銆乻pring 鍙傛暟銆佹椂闀垮熀绾裤€侀暅澶?杞満璇嶈〃
-references/platform-presets.md  # 6 涓钩鍙扮殑鎻愮ず璇嶉鏋朵笌缈昏溅鐐?references/examples.md          # 4 涓畬鏁存渚嬶細浜у搧鐗囥€乴ogo 婕旂粠銆佸姩鎬佸瓧浣撱€佹暟鎹彲瑙嗗寲
-assets/prompt-card.md           # 浜や粯妯℃澘
-assets/spec.schema.json         # 浠ｇ爜鍔ㄦ晥瑙勬牸鐨?JSON Schema
+SKILL.md                        # 方法主体：5 步流程、9 槽位提示词解剖、质量门槛
+references/motion-grammar.md    # 缓动曲线、spring 参数、时长基线、镜头/转场词表
+references/platform-presets.md  # 6 个平台的提示词骨架与翻车点
+references/examples.md          # 4 个完整案例：产品片、logo 演绎、动态字体、数据可视化
+assets/prompt-card.md           # 交付模板
+assets/spec.schema.json         # 代码动效规格的 JSON Schema
 ```
 
-## 璁捐鍘熷垯
+## 设计原则
 
-1. **娌℃湁娴嬮噺灏变笉鍐欏舰瀹硅瘝銆?* "鐢靛奖鎰熷厜褰? 鏀规垚 `single hard key from camera-left, 45掳, deep falloff, no fill`銆?2. **姣?2 绉掍竴涓繍鍔ㄤ簨浠躲€?* 闈欐鏄墜娈碉紝涓嶆槸鎰忓銆?3. **璐熷悜绾︽潫鏄彁绀鸿瘝鐨勪竴閮ㄥ垎銆?* 涓嶈鍑虹幇浠€涔堬紝鍜岃鍑虹幇浠€涔堜竴鏍烽噸瑕併€?4. **涓€鑷存€ч潬閿氱偣銆?* 姣忎釜涓讳綋涓€娈靛浐瀹氭弿杩板潡锛岃法闀滃ご閫愬瓧澶嶇敤銆?5. **骞冲彴鏄柟瑷€銆?* 鍚屼竴鍒涙剰鎸夋ā鍨嬮噸鍐欙紝涓嶅鍒剁矘璐淬€?
-## 璁稿彲
+1. **没有测量就不写形容词。** "电影感光影" 改成 `single hard key from camera-left, 45°, deep falloff, no fill`。
+2. **每 2 秒一个运动事件。** 静止是手段，不是意外。
+3. **负向约束是提示词的一部分。** 不该出现什么，和该出现什么一样重要。
+4. **一致性靠锚点。** 每个主体一段固定描述块，跨镜头逐字复用。
+5. **平台是方言。** 同一创意按模型重写，不复制粘贴。
 
-MIT锛岃 [LICENSE](LICENSE)銆傛嬁鍘荤敤銆佹嬁鍘绘敼銆佹嬁鍘诲彂銆?
+## 许可
+
+MIT，见 [LICENSE](LICENSE)。拿去用、拿去改、拿去发。
