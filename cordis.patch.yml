@@ -1,0 +1,11 @@
+# dsh bundle patch for dsh-skill-motion-design-prompt-generator.
+#
+# The plugin registers itself as a skill provider; no configuration is needed.
+# To disable it without uninstalling, add this to the PROFILE's cordis.patch.yml:
+#
+#   - id: motion-design-prompt-generator
+#     config:
+#       enabled: false
+- insert:
+    - id: motion-design-prompt-generator
+      name: 'dsh-skill-motion-design-prompt-generator'

@@ -1,53 +1,17 @@
 # Motion Design Prompt Generator（动效提示词生成器）
 
-一个 Agent 技能：把**一句话的想法**变成**帧级可执行的动效简报**——能直接粘进 Sora / Veo / Kling / 即梦 / Runway 的主提示词、剪辑能对着卡点的分镜表、渲染器能直接跑的 JSON 规格。
+**把一句话变成帧级运动规格书**——分镜节拍、镜头、缓动、时长，直接投喂 Sora / Veo / Kling / 即梦 / Runway。
 
-支持 DeepSeek Harness（DSH）、Claude Code、Codex、Cursor，以及任何读取 `SKILL.md` 的 Agent。
+[![License: MIT](https://img.shields.io/badge/license-MIT-7c5cff.svg)](LICENSE)
+[![DSH](https://img.shields.io/badge/DeepSeek%20Harness-skill-39d0d8.svg)](#deepseek-harness)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-skill-7c5cff.svg)](#claude-code)
+[![English](https://img.shields.io/badge/English-README-8b90a0.svg)](README.md)
 
----
+![demo](assets/demo.gif)
 
-## 它解决什么问题
-
-大多数 AI 视频提示词是在堆形容词：*高级、丝滑、电影感、4K*。模型只能用训练数据的平均值来回答，于是成片看起来像通用素材库。
-
-这个技能把形容词换成**可观测的事实**：焦段、距离、时长、缓动、角度、材质、一个物理细节、一条负向约束。提示词从此是规格书——可复现、可评审、废片率大幅下降。
-
-## 前后对比
-
-**你说：**
-
-> 给我们新的协作工具做一个 15 秒开场，冷静、高级。
-
-**没有技能时：**
-
-> 一个震撼的电影感动画，现代协作工具，丝滑运动，高质量，4K，未来感界面，唯美光影。
-
-**有技能时：**
-
-```
-假设：15s / 16:9 / 无人物 / 冷色调
-
-分镜节拍
-0.0–1.5s  三粒冷光在虚空中加速下坠
-1.5–4s    汇聚成一条线，展开成磨砂玻璃面板
-4–9s      面板裂开，分层界面以 6mm 视差滑出
-9–12s     沿接缝硬切，镜头推进顶层
-12–15s    logo 落版，静止 0.5s
-
-主提示词
-Three points of cold blue light fall through a black void, accelerating,
-then converge into a single horizontal line that unfolds into a floating
-pane of frosted glass. The pane splits along a seam and layers of
-translucent interface panels slide out from behind each other with 6 mm
-parallax. All motion decelerates hard in the last 20%, with a slight
-mechanical overshoot where panels lock. 15 seconds, 24 fps, match cuts on
-the panel seams. Single cold key from above, cyan rim light, volumetric
-haze, brushed glass micro-texture. No people, no readable text, no lens flare.
-```
+大多数 AI 视频提示词是在堆形容词。这一份是规格书。
 
 ## 安装
-
-技能就是一个文件夹，复制到你的 Agent 技能目录即可。
 
 ### DeepSeek Harness（DSH）
 
@@ -61,25 +25,16 @@ git clone https://github.com/jhh266205-maker/motion-design-prompt-generator.git 
 git clone https://github.com/jhh266205-maker/motion-design-prompt-generator.git ~/.dsh/skills/motion-design-prompt-generator
 ```
 
-DSH 会监听技能目录，**无需重启**即可生效。
+DSH 会监听技能目录，**无需重启**。也可以等 npm 发布后按插件装：
+
+```bash
+dsh plugin --profile web add dsh-skill-motion-design-prompt-generator
+```
 
 ### Claude Code
 
 ```bash
 git clone https://github.com/jhh266205-maker/motion-design-prompt-generator.git ~/.claude/skills/motion-design-prompt-generator
-```
-
-### 一键安装（克隆之后）
-
-```powershell
-# Windows（执行策略可能拦截未签名脚本，单次绕过即可）
-powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1
-```
-
-```bash
-# macOS / Linux
-./install.sh                 # 有 DSH 和 Claude Code 就都装
-./install.sh --target dsh    # 只装 DSH
 ```
 
 ### Cursor / Codex / Windsurf
@@ -88,7 +43,18 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1
 
 ### 其他 Agent
 
-把 `SKILL.md` 放到你的 Agent 读取技能的位置，或直接粘进 system prompt——整套方法都自包含在这一个文件里。`references/` 和 `assets/` 是可选深度。
+把 `SKILL.md` 放到你的 Agent 读取技能的位置，或直接粘进 system prompt——整套方法自包含在一个文件里。`references/` 和 `assets/` 是可选的深度。
+
+### 一键安装（克隆之后）
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1   # Windows
+```
+
+```bash
+./install.sh                 # macOS / Linux：有 DSH 和 Claude Code 就都装
+./install.sh --target dsh    # 只装 DSH
+```
 
 ## 怎么用
 
@@ -102,10 +68,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1
 
 > 把「一杯冰美式」做成 8 秒竖版动效提示词，要克制、别网红。
 
-也可以显式调用：
-
-> 用 motion-design-prompt-generator 给这个分镜写提示词。
-
 ## 产出什么
 
 | 产出 | 形态 | 用途 |
@@ -116,6 +78,16 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1
 | 动效规格 | JSON（附 schema） | Remotion / HyperFrames / GSAP / Lottie |
 | 负向与锚点块 | 文本 | 降废片率、多镜头一致性 |
 
+## 为什么有效
+
+普通提示词长这样：*"高级、丝滑、电影感、4K"*。模型只能拿训练数据的平均值来回答，于是成片像素材库。这个技能把形容词换成**可观测事实**：焦段、距离、时长、缓动、角度、材质、一个物理细节、一条负向约束。
+
+```
+之前  一个震撼的电影感动画，丝滑运动，4K，未来感界面
+之后  100mm 微距，5 秒内从 40cm 推到 15cm，24fps 一镜到底，
+      面板过冲 5° 后锁死，单侧冷光，无镜头光晕
+```
+
 ## 目录结构
 
 ```
@@ -125,6 +97,7 @@ references/platform-presets.md  # 6 个平台的提示词骨架与翻车点
 references/examples.md          # 4 个完整案例：产品片、logo 演绎、动态字体、数据可视化
 assets/prompt-card.md           # 交付模板
 assets/spec.schema.json         # 代码动效规格的 JSON Schema
+assets/demo.html                # GIF 背后的动画源码（打开就能改）
 ```
 
 ## 设计原则
@@ -134,6 +107,14 @@ assets/spec.schema.json         # 代码动效规格的 JSON Schema
 3. **负向约束是提示词的一部分。** 不该出现什么，和该出现什么一样重要。
 4. **一致性靠锚点。** 每个主体一段固定描述块，跨镜头逐字复用。
 5. **平台是方言。** 同一创意按模型重写，不复制粘贴。
+
+## 二次开发
+
+```bash
+node test/smoke.mjs                                  # 插件冒烟测试
+node scripts/render-demo.mjs                         # 重渲染演示帧（需要 Chrome）
+python scripts/build-assets.py --width 880 --fps 12  # 重建 assets/demo.gif 与封面
+```
 
 ## 许可
 

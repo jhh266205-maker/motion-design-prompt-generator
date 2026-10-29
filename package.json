@@ -1,0 +1,51 @@
+{
+  "name": "dsh-skill-motion-design-prompt-generator",
+  "version": "1.0.0",
+  "description": "DSH plugin that serves the motion-design-prompt-generator skill to the agent skill catalog: turn a one-line brief into a frame-accurate motion spec (master prompt, beat sheet, JSON motion spec).",
+  "type": "module",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "SKILL.md",
+    "references",
+    "assets/prompt-card.md",
+    "assets/spec.schema.json",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "agent-skills",
+    "skill",
+    "motion-design",
+    "ai-video",
+    "prompt-engineering",
+    "sora",
+    "kling"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhh266205-maker/motion-design-prompt-generator.git"
+  },
+  "homepage": "https://github.com/jhh266205-maker/motion-design-prompt-generator#readme",
+  "bugs": {
+    "url": "https://github.com/jhh266205-maker/motion-design-prompt-generator/issues"
+  },
+  "author": "jhh266205-maker"
+}

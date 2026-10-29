@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>cover</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1280px;height:640px;overflow:hidden;background:#0a0b0e}
+  body{
+    font-family:"Segoe UI","Microsoft YaHei UI",system-ui,sans-serif;color:#e8eaf0;
+    background:
+      radial-gradient(760px 420px at 12% 6%, rgba(124,92,255,.26), transparent 62%),
+      radial-gradient(700px 460px at 96% 104%, rgba(57,208,216,.16), transparent 64%),
+      #0a0b0e;
+    padding:64px 68px;
+  }
+  .brand{font:600 14px/1 ui-monospace,Consolas,monospace;color:#7d8396;letter-spacing:.05em}
+  .brand b{color:#7c5cff}
+  h1{margin-top:26px;font-size:64px;line-height:1.06;letter-spacing:-.02em;font-weight:800}
+  h1 span{background:linear-gradient(92deg,#7c5cff,#39d0d8);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{margin-top:18px;font-size:22px;line-height:1.5;color:#a9afc0;max-width:660px}
+  .sub b{color:#eef0f6;font-weight:600}
+  .cmd{margin-top:30px;display:inline-flex;align-items:center;gap:12px;padding:14px 18px;border:1px solid #232733;border-radius:12px;background:#0d0f14;
+       font:500 15px/1 ui-monospace,Consolas,monospace;color:#cfd4e2}
+  .cmd i{width:8px;height:8px;border-radius:50%;background:#39d0d8;display:inline-block}
+  .tags{margin-top:22px;display:flex;gap:8px;font:600 12px/1 ui-monospace,monospace;color:#8b90a0}
+  .tags span{padding:7px 10px;border:1px solid #232733;border-radius:999px}
+
+  .art{position:absolute;right:-60px;top:-40px;width:640px;height:720px;opacity:.9}
+  .ring{position:absolute;border-radius:50%;border:1px solid rgba(124,92,255,.35)}
+  .r1{width:520px;height:520px;right:110px;top:70px}
+  .r2{width:380px;height:380px;right:180px;top:140px;border-color:rgba(57,208,216,.35)}
+  .r3{width:240px;height:240px;right:250px;top:210px;border-color:rgba(255,255,255,.10)}
+  .dot{position:absolute;width:10px;height:10px;border-radius:50%;background:#39d0d8;box-shadow:0 0 22px #39d0d8;right:214px;top:150px}
+  .dot2{position:absolute;width:7px;height:7px;border-radius:50%;background:#7c5cff;box-shadow:0 0 18px #7c5cff;right:392px;top:400px}
+  .scan{position:absolute;left:-80px;top:340px;width:1500px;height:1px;background:linear-gradient(90deg,transparent,rgba(124,92,255,.55),rgba(57,208,216,.55),transparent);transform:rotate(-8deg)}
+</style>
+</head>
+<body>
+  <div class="brand">agent skill <b>/</b> deepseek harness · claude code · codex</div>
+  <h1>Motion Design<br><span>Prompt Generator</span></h1>
+  <div class="sub">把一句话变成 <b>帧级运动规格书</b>：分镜节拍、镜头、缓动、时长，<br>直接投喂 Sora / Veo / Kling / 即梦 / Runway。</div>
+  <div class="cmd"><i></i>install → ~/.dsh/skills/motion-design-prompt-generator</div>
+  <div class="tags"><span>MIT</span><span>SKILL.md</span><span>中文 + English</span></div>
+
+  <div class="art">
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="ring r3"></div>
+    <div class="dot"></div>
+    <div class="dot2"></div>
+    <div class="scan"></div>
+  </div>
+</body>
+</html>

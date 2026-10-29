@@ -1,60 +1,24 @@
 # Motion Design Prompt Generator
 
-An agent skill that turns **one line of intent** into a **frame-accurate motion brief**: a master prompt you can paste into Sora / Veo / Kling / Seedance / Runway, a beat sheet your editor can cut to, and a JSON spec your renderer can execute.
+**Turn one line of intent into a frame-accurate motion spec** — beat sheet, lens, easing, duration — ready for Sora / Veo / Kling / Seedance / Runway.
 
-Works with DeepSeek Harness (DSH), Claude Code, Codex, Cursor, and any agent that reads `SKILL.md` files.
+一句话 → 帧级运动规格书。
 
-> 中文说明见 [README.zh.md](README.zh.md)。
+[![License: MIT](https://img.shields.io/badge/license-MIT-7c5cff.svg)](LICENSE)
+[![Works with DSH](https://img.shields.io/badge/DeepSeek%20Harness-skill-39d0d8.svg)](#deepseek-harness)
+[![Works with Claude Code](https://img.shields.io/badge/Claude%20Code-skill-7c5cff.svg)](#claude-code)
+[![中文](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-README-8b90a0.svg)](README.zh.md)
 
----
+![demo](assets/demo.gif)
 
-## The problem
-
-Most AI-video prompts are piles of adjectives — *cinematic, stunning, smooth, high quality*. A model can only answer that with the average of its training data, which is why the output looks like generic stock footage.
-
-This skill replaces adjectives with **observable facts**: lens, distance, duration, easing, angle, material, a physical detail, and a negative constraint. Prompts become specifications — reproducible, reviewable, and far less likely to produce unusable takes.
-
-## Before / after
-
-**You say:**
-
-> Make a 15-second opening for our new collaboration tool. Calm, premium.
-
-**Without the skill:**
-
-> A stunning cinematic animation of a modern collaboration tool, smooth motion, high quality, 4K, futuristic UI, beautiful lighting.
-
-**With the skill:**
-
-```
-Assumption: 15s / 16:9 / no people / cool palette
-
-Beat sheet
-0.0–1.5s  3 points of light fall through a void, accelerating
-1.5–4s    they converge into a line, then a frosted glass pane unfolds
-4–9s      the pane splits, layered UI panels slide out with 6 mm parallax
-9–12s     hard cut on a seam, camera pushes into the top layer
-12–15s    logo lands, 0.5s hold
-
-Master prompt
-Three points of cold blue light fall through a black void, accelerating,
-then converge into a single horizontal line that unfolds into a floating
-pane of frosted glass. The pane splits along a seam and layers of
-translucent interface panels slide out from behind each other with 6 mm
-parallax. All motion decelerates hard in the last 20%, with a slight
-mechanical overshoot where panels lock. 15 seconds, 24 fps, match cuts on
-the panel seams. Single cold key from above, cyan rim light, volumetric
-haze, brushed glass micro-texture. No people, no readable text, no lens flare.
-```
+Most AI-video prompts are piles of adjectives. This one is a specification.
 
 ## Install
 
-The skill is a single folder. Copy it into your agent's skills directory.
-
-### DeepSeek Harness (DSH)
+### DeepSeek Harness
 
 ```powershell
-# Windows
+# Windows — one line, no clone
 git clone https://github.com/jhh266205-maker/motion-design-prompt-generator.git "$env:USERPROFILE\.dsh\skills\motion-design-prompt-generator"
 ```
 
@@ -63,25 +27,16 @@ git clone https://github.com/jhh266205-maker/motion-design-prompt-generator.git 
 git clone https://github.com/jhh266205-maker/motion-design-prompt-generator.git ~/.dsh/skills/motion-design-prompt-generator
 ```
 
-DSH watches the skills directory and picks it up without a restart.
+DSH watches the skills directory — no restart. Or install it as a plugin once it is on npm:
+
+```bash
+dsh plugin --profile web add dsh-skill-motion-design-prompt-generator
+```
 
 ### Claude Code
 
 ```bash
 git clone https://github.com/jhh266205-maker/motion-design-prompt-generator.git ~/.claude/skills/motion-design-prompt-generator
-```
-
-### One-command install (from a clone)
-
-```powershell
-# Windows (execution policy may block unsigned scripts — bypass for this run)
-powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1
-```
-
-```bash
-# macOS / Linux
-./install.sh                 # DSH + Claude Code, whichever exists
-./install.sh --target dsh    # DSH only
 ```
 
 ### Cursor / Codex / Windsurf
@@ -91,6 +46,17 @@ Clone into that client's skills root (`~/.cursor/skills/`, `~/.codex/skills/`, `
 ### Any other agent
 
 Drop `SKILL.md` wherever your agent looks for skills, or paste it into a system prompt — the whole method is self-contained in one file. `references/` and `assets/` are optional depth.
+
+### One-command install (after cloning)
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1   # Windows
+```
+
+```bash
+./install.sh                 # macOS / Linux: DSH + Claude Code, whichever exists
+./install.sh --target dsh    # DSH only
+```
 
 ## Use it
 
@@ -104,10 +70,6 @@ The skill activates on intent; you never need to name it:
 
 > 把「一杯冰美式」做成 8 秒竖版动效提示词，要克制、别网红。
 
-You can also invoke it explicitly:
-
-> Use motion-design-prompt-generator to write the prompt for this storyboard.
-
 ## What you get
 
 | Output | Shape | Use |
@@ -118,6 +80,16 @@ You can also invoke it explicitly:
 | Motion spec | JSON (schema included) | Remotion / HyperFrames / GSAP / Lottie |
 | Negative + anchor block | Text | Fewer wasted takes, consistent subject |
 
+## Why it works
+
+Most prompts read like *"cinematic, stunning, smooth, high quality"* — a model can only answer that with the average of its training data, which is why the result looks like stock footage. This skill replaces adjectives with **observable facts**: lens, distance, duration, easing, angle, material, one physical detail, one negative constraint.
+
+```
+Before  a stunning cinematic animation, smooth motion, 4K, futuristic UI
+After   100 mm macro, dolly-in 40 cm → 15 cm over 5 s, 24 fps, one take,
+        panels overshoot 5° and lock, single cold key, no lens flare
+```
+
 ## What's inside
 
 ```
@@ -127,6 +99,7 @@ references/platform-presets.md  # prompt skeletons + failure modes for 6 platfor
 references/examples.md          # 4 worked cases: product film, logo reveal, kinetic type, data viz
 assets/prompt-card.md           # delivery template
 assets/spec.schema.json         # JSON Schema for code-based motion specs
+assets/demo.html                # the animation behind the GIF (open it, edit it)
 ```
 
 ## Design principles
@@ -136,6 +109,14 @@ assets/spec.schema.json         # JSON Schema for code-based motion specs
 3. **Negative constraints are part of the prompt.** What must not appear matters as much as what must.
 4. **Consistency needs an anchor.** Every subject gets a fixed description block reused verbatim across shots.
 5. **Platforms are dialects.** The same idea is rewritten per model, not copy-pasted.
+
+## Development
+
+```bash
+node test/smoke.mjs                                  # plugin smoke test
+node scripts/render-demo.mjs                         # re-render demo frames (Chrome)
+python scripts/build-assets.py --width 880 --fps 12  # rebuild assets/demo.gif + cover
+```
 
 ## License
 

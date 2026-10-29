@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>motion-design-prompt-generator — demo</title>
+<style>
+  :root{
+    --bg:#0a0b0e; --panel:#12141a; --line:#232733;
+    --ink:#e8eaf0; --dim:#8b90a0; --accent:#7c5cff; --cyan:#39d0d8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1280px;height:720px;overflow:hidden;background:var(--bg)}
+  body{
+    font-family:"Segoe UI","Microsoft YaHei UI","PingFang SC",system-ui,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(900px 500px at 18% 8%, rgba(124,92,255,.20), transparent 60%),
+      radial-gradient(800px 500px at 92% 96%, rgba(57,208,216,.14), transparent 62%),
+      var(--bg);
+  }
+  .stage{position:relative;display:flex;flex-direction:column;width:1280px;height:720px;padding:64px 64px 76px}
+  .brand{position:absolute;left:64px;top:34px;font:600 15px/1 ui-monospace,Consolas,monospace;color:var(--dim);letter-spacing:.04em}
+  .brand b{color:var(--accent)}
+
+  .cols{flex:1;display:flex;align-items:center;gap:34px}
+  .card{
+    background:linear-gradient(180deg,#14161d,#101218);
+    border:1px solid var(--line);border-radius:18px;
+    box-shadow:0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
+  }
+
+  .brief{width:392px;padding:26px 26px 24px}
+  .brief .tag{font:600 12px/1 ui-monospace,monospace;color:var(--cyan);letter-spacing:.14em;text-transform:uppercase}
+  .brief .q{margin-top:16px;font-size:24px;line-height:1.45;color:#f2f4f9}
+  .brief .q em{font-style:normal;color:var(--accent)}
+  .brief .who{margin-top:18px;font-size:13px;color:var(--dim)}
+
+  .arrow{flex:0 0 74px;position:relative;height:2px;opacity:0}
+  .arrow .dash{position:absolute;inset:0;background:linear-gradient(90deg,var(--accent),var(--cyan));transform-origin:left;transform:scaleX(0);border-radius:2px}
+  .arrow .head{position:absolute;right:-2px;top:-5px;width:12px;height:12px;border-right:2px solid var(--cyan);border-top:2px solid var(--cyan);transform:rotate(45deg) scale(.4);opacity:0}
+
+  .spec{width:674px;padding:22px 24px 24px;opacity:0;transform:translateY(22px)}
+  .spec .head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px}
+  .spec .head .t{font:600 13px/1 ui-monospace,monospace;color:var(--dim);letter-spacing:.12em}
+  .spec .head .meta{font:500 12px/1 ui-monospace,monospace;color:#5f6577}
+
+  .beats{display:flex;gap:8px;margin-top:16px}
+  .beat{flex:1;opacity:0;transform:translateY(10px)}
+  .beat .bar{height:6px;border-radius:3px;background:#1d212b;overflow:hidden}
+  .beat .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--cyan));border-radius:3px}
+  .beat .tc{margin-top:8px;font:600 11px/1 ui-monospace,monospace;color:#6f7688}
+  .beat .fn{margin-top:5px;font:600 12px/1 ui-monospace,monospace;color:#c9cede;letter-spacing:.08em}
+
+  .prompt{margin-top:20px;padding:18px 18px 16px;background:#0c0e13;border:1px solid #1b1f29;border-radius:12px;min-height:212px}
+  .prompt .lbl{font:600 11px/1 ui-monospace,monospace;color:#5f6577;letter-spacing:.14em}
+  .prompt pre{margin-top:12px;font:400 15px/1.72 ui-monospace,Consolas,monospace;color:#d7dbe6;white-space:pre-wrap}
+  .prompt .cursor{display:inline-block;width:9px;height:17px;background:var(--cyan);vertical-align:-3px;margin-left:2px}
+
+  .foot{position:absolute;left:64px;bottom:36px;right:64px;display:flex;justify-content:space-between;align-items:center;
+        font:500 13px/1 ui-monospace,monospace;color:#5f6577;opacity:0}
+  .foot .repo{color:#8b90a0}
+  .foot .repo b{color:var(--ink);font-weight:600}
+  .chip{padding:7px 11px;border:1px solid #232733;border-radius:999px;color:#9aa0b2}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="brand">motion-design-prompt-generator <b>/</b> demo</div>
+
+  <div class="cols">
+    <div class="card brief" id="brief">
+      <div class="tag">your brief</div>
+      <div class="q">给我们新的协作工具<br>做一个 <em>15 秒</em>开场，<br>冷静、高级、不要真人。</div>
+      <div class="who">—— 一句话，没有时间码，没有镜头</div>
+    </div>
+
+    <div class="arrow" id="arrow">
+      <div class="dash" id="dash"></div>
+      <div class="head" id="head"></div>
+    </div>
+
+    <div class="card spec" id="spec">
+      <div class="head">
+        <div class="t">MOTION SPEC</div>
+        <div class="meta">15s · 16:9 · 24fps</div>
+      </div>
+
+      <div class="beats" id="beats">
+        <div class="beat"><div class="bar"><i></i></div><div class="tc">0.0–1.5</div><div class="fn">HOOK</div></div>
+        <div class="beat"><div class="bar"><i></i></div><div class="tc">1.5–4.0</div><div class="fn">BUILD</div></div>
+        <div class="beat"><div class="bar"><i></i></div><div class="tc">4.0–9.0</div><div class="fn">EXPAND</div></div>
+        <div class="beat"><div class="bar"><i></i></div><div class="tc">9.0–12.0</div><div class="fn">TURN</div></div>
+        <div class="beat"><div class="bar"><i></i></div><div class="tc">12.0–15.0</div><div class="fn">LAND</div></div>
+      </div>
+
+      <div class="prompt">
+        <div class="lbl">MASTER PROMPT</div>
+        <pre id="promptText"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot" id="foot">
+    <div class="repo">github.com/<b>jhh266205-maker</b>/motion-design-prompt-generator</div>
+    <div class="chip">Sora · Veo · Kling · Seedance · Runway</div>
+  </div>
+</div>
+
+<script>
+const PROMPT = [
+  "Three points of cold blue light fall through a black void,",
+  "accelerating, then converge into one horizontal line that",
+  "unfolds into a floating pane of frosted glass. The pane",
+  "splits; layered interface panels slide out with 6 mm parallax.",
+  "All motion decelerates hard in the last 20%.",
+  "",
+  "15s · 24fps · single cold key · no people, no text, no lens flare"
+].join("\n");
+
+const DURATION = 5.2;
+const q = new URLSearchParams(location.search);
+const t = Math.min(parseFloat(q.get("t") || "0"), DURATION);
+
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const easeOut = (x) => 1 - Math.pow(1 - clamp(x), 3);
+const easeInOut = (x) => { x = clamp(x); return x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x+2, 3)/2; };
+const seg = (start, dur) => easeOut((t - start) / dur);
+
+const brief = document.getElementById("brief");
+const arrow = document.getElementById("arrow");
+const dash  = document.getElementById("dash");
+const head  = document.getElementById("head");
+const spec  = document.getElementById("spec");
+const foot  = document.getElementById("foot");
+const beats = [...document.querySelectorAll(".beat")];
+const bars  = [...document.querySelectorAll(".beat .bar i")];
+const promptText = document.getElementById("promptText");
+
+// 1) brief — already on screen at t=0 so the GIF poster is never black
+brief.style.opacity = 1;
+brief.style.transform = "translateY(0)";
+
+// 2) arrow
+let p = seg(0.55, 0.45);
+arrow.style.opacity = p;
+dash.style.transform = `scaleX(${easeInOut((t - 0.55) / 0.5)})`;
+const hp = seg(0.95, 0.25);
+head.style.opacity = hp;
+head.style.transform = `rotate(45deg) scale(${0.4 + hp * 0.6})`;
+
+// 3) spec card
+p = seg(0.95, 0.6);
+spec.style.opacity = p;
+spec.style.transform = `translateY(${(1 - p) * 22}px)`;
+
+// 4) beats: staggered appear + bar fill
+beats.forEach((el, i) => {
+  const start = 1.35 + i * 0.16;
+  const ap = seg(start, 0.42);
+  el.style.opacity = ap;
+  el.style.transform = `translateY(${(1 - ap) * 10}px)`;
+  const fill = easeInOut((t - start - 0.1) / 0.55);
+  bars[i].style.width = `${clamp(fill) * 100}%`;
+});
+
+// 5) typed prompt
+const typeStart = 2.15, typeEnd = 4.35;
+const tp = clamp((t - typeStart) / (typeEnd - typeStart));
+const n = Math.floor(tp * PROMPT.length);
+promptText.textContent = PROMPT.slice(0, n);
+if (tp < 1) {
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  cursor.style.opacity = (Math.floor(t * 2) % 2 === 0) ? 1 : 0;
+  promptText.appendChild(cursor);
+}
+
+// 6) footer
+p = seg(4.05, 0.55);
+foot.style.opacity = p;
+foot.style.transform = `translateY(${(1 - p) * 8}px)`;
+</script>
+</body>
+</html>

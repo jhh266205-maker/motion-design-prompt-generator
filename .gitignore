@@ -13,3 +13,6 @@ Desktop.ini
 
 # Node (if you script around the skill)
 node_modules/
+
+# Rendered demo frames (regenerate with: node scripts/render-demo.mjs)
+.render/
